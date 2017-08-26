@@ -9,15 +9,13 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],
+    books: [],
     results: []
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then((currentlyReading) => {
-      this.setState({ currentlyReading })
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
     })
   }
 
@@ -27,8 +25,12 @@ class BooksApp extends React.Component {
       })
     }
 
-  addBook(book, shelf) {
-    BooksAPI.update(book, shelf)
+  updateBook(book_id, shelf) {
+    BooksAPI.update(book_id, shelf).then((book) => {
+        this.setState(state => ({
+          books: state.books.concat([ book ])
+        }))
+    })
   }
 
   render() {
@@ -45,9 +47,9 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-              <Bookshelf section="Currently Reading" books={this.state.currentlyReading}/>
-              <Bookshelf section="Want to Read" books={this.state.wantToRead}/>
-              <Bookshelf section="Read" books={this.state.read}/>
+              <Bookshelf section="Currently Reading" section_id="currentlyReading" books={this.state.books}/>
+              <Bookshelf section="Want to Read" section_id="wantToRead" books={this.state.books}/>
+              <Bookshelf section="Read" section_id="read" books={this.state.books}/>
             <div className="open-search">
               <Link to="/search">Add a book</Link>
             </div>
