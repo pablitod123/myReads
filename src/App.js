@@ -9,21 +9,21 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
+    currentlyReading: [],
+    wantToRead: [],
+    read: [],
     results: []
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-      // console.log(JSON.stringify(books))
+    BooksAPI.getAll().then((currentlyReading) => {
+      this.setState({ currentlyReading })
     })
   }
 
   searchBooks(query, maxResults) {
       BooksAPI.search(query, maxResults).then((results) => {
         this.setState({ results })
-        // console.log(this.state.results)
       })
     }
 
@@ -45,7 +45,9 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <Bookshelf books={this.state.books}/>
+              <Bookshelf section="Currently Reading" books={this.state.currentlyReading}/>
+              <Bookshelf section="Want to Read" books={this.state.wantToRead}/>
+              <Bookshelf section="Read" books={this.state.read}/>
             <div className="open-search">
               <Link to="/search">Add a book</Link>
             </div>
