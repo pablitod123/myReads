@@ -19,7 +19,7 @@ class Bookshelf extends Component {
 									shelf={book.shelf}
 									thumbnailImage={book.imageLinks}
 									onShelfUpdate={(shelf) => {
-										this.props.onShelfUpdate(book.id, shelf)
+										this.props.onShelfUpdate(book, shelf)
 									}}
 									/>
 								)}

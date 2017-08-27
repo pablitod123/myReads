@@ -7,7 +7,6 @@ class SearchBooks extends Component {
 		e.preventDefault()
 		const values = serializeForm(e.target, {hash: true})
 		this.props.onSearch(values.query, 20)
-		console.log(this.props.results)
 	}
 
 
@@ -29,7 +28,7 @@ class SearchBooks extends Component {
 			                         <div className="book-top">
 			                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${result.imageLinks.thumbnail})` }}></div>
 				                            <div className="book-shelf-changer">
-				                              <select>
+				                              <select  onChange={this.updateShelf} value={this.props.shelf}>
 				                                <option value="none" disabled>Move to...</option>
 				                                <option value="currentlyReading">Currently Reading</option>
 				                                <option value="wantToRead">Want to Read</option>
