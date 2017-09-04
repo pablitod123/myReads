@@ -22,7 +22,6 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     this.loadBooks()
-
   }
 
   searchBooks(query, maxResults) {
@@ -50,6 +49,7 @@ class BooksApp extends React.Component {
           }}
           onShelfUpdate = {(id, shelf) => {
             this.updateShelf(id, shelf)
+            history.push('/')
           }}/>
         )}/>
 

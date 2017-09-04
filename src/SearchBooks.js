@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 import serializeForm from 'form-serialize'
 
 class SearchBooks extends Component {
+	
 	handleSubmit = (e) => {
 		e.preventDefault()
 		const values = serializeForm(e.target, {hash: true})
 		this.props.onSearch(values.query, 20)
+
 	}
 
 
@@ -28,7 +30,7 @@ class SearchBooks extends Component {
 			                         <div className="book-top">
 			                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${result.imageLinks.thumbnail})` }}></div>
 				                            <div className="book-shelf-changer">
-				                              <select  onChange={this.updateShelf} value={this.props.shelf}>
+				                              <select  onChange={(e)=>{this.props.onShelfUpdate(result,e.target.value);}} value={result.shelf}>
 				                                <option value="none" disabled>Move to...</option>
 				                                <option value="currentlyReading">Currently Reading</option>
 				                                <option value="wantToRead">Want to Read</option>
