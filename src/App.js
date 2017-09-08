@@ -9,26 +9,18 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
-    results: []
+    books: []
   }
 
   loadBooks = () => {
     BooksAPI.getAll().then((books) => 
       this.setState({ books })
     )
-
   }
 
   componentDidMount() {
     this.loadBooks()
   }
-
-  searchBooks(query, maxResults) {
-      BooksAPI.search(query, maxResults).then((results) => {
-        this.setState({ results })
-      })
-    }
 
   updateShelf(book_id, shelf) {
     BooksAPI.update(book_id, shelf).then(() => {
@@ -43,10 +35,7 @@ class BooksApp extends React.Component {
       <div className="app">
       <Route exact path="/search" render={( {history} ) => (
           <SearchBooks 
-          results={this.state.results} 
-          onSearch={(query) => {
-            this.searchBooks(query, 20)
-          }}
+          books={this.state.books}
           onShelfUpdate = {(id, shelf) => {
             this.updateShelf(id, shelf)
             history.push('/')
